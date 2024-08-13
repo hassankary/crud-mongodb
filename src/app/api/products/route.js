@@ -12,5 +12,12 @@ export async function POST(request) {
   const { title, subtitle } = await request.json();
   await connectMongoDB();
   await Product.create({ title, subtitle });
-  return NextResponse.json({ message: "Product Created" }, { status: 201 });
+  return NextResponse.json({ message: "Product created" }, { status: 201 });
+}
+
+export async function DELETE(request) {
+  const id = request.nextUrl.searchParams.get("id");
+  await connectMongoDB();
+  await Product.findByIdAndDelete(id)
+  return NextResponse.json({ message: "Product deleted"}, { status: 200 });
 }

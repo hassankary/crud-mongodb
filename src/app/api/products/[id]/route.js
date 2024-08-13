@@ -11,10 +11,8 @@ export async function PUT(request, { params }) {
 }
 
 export async function GET(request, { params }) {
-  console.log("params:", params);
   const { id } = params;
   await connectMongoDB();
   const products = await Product.findOne({ _id: id });
-  console.log("Fetched product:", products);
   return NextResponse.json({ products }, { status: 200 });
 }
