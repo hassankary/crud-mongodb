@@ -1,9 +1,11 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const ProductList = () => {
-  const [newProduct, setNewProduct] = useState("");
+  const [newProduct, setNewProduct] = useState(null);
+  const router = useRouter()
 
   const getProducts = async () => {
     try {
@@ -27,7 +29,7 @@ export const ProductList = () => {
   console.log("newProduct", newProduct);
 
   return (
-    <>
+    <div className="">
       <div className="flex justify-between p-10">
         <div className="flex justify-center items-center font-bold">
           BLOG MONGO
@@ -40,7 +42,7 @@ export const ProductList = () => {
       </div>
       <div>
         <table className="table">
-          <thead>
+          <thead className="text-black">
             <tr>
               <th className="w-5">
                 <label>
@@ -56,13 +58,17 @@ export const ProductList = () => {
               ? newProduct?.map((d) => {
                   return (
                     <tr key={d._id}>
-                      <th className="w-5">
+                      <td className="w-5">
                         <label>
                           <input type="checkbox" className="checkbox" />
                         </label>
-                      </th>
-                      <th>{d.title}</th>
-                      <th>{d.subtitle}</th>
+                      </td>
+                      <td>{d.title}</td>
+                      <td>{d.subtitle}</td>
+                      <td className=" space-x-2">
+                        <button onClick={() => router.push(`editProduct/${d._id}`)} className="btn btn-outline btn-accent">Edit</button>
+                        <button className="btn btn-outline btn-error">Del</button>
+                      </td>
                     </tr>
                   );
                 })
@@ -70,6 +76,6 @@ export const ProductList = () => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   );
 };
