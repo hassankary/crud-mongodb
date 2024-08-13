@@ -1,7 +1,30 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export const ProductList = () => {
+  const [newProduct, setNewProduct] = useState("");
+
+  const getProducts = async () => {
+    try {
+      const res = await fetch("http://localhost:3000/api/products", {
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to create a Product");
+      }
+      const results = await res.json();
+      setNewProduct(results.products);
+    } catch (error) {
+      console.log("error loading products:", error);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  console.log("newProduct", newProduct);
 
   return (
     <>
@@ -28,7 +51,23 @@ export const ProductList = () => {
               <th>Subtitle</th>
             </tr>
           </thead>
-          
+          <tbody>
+            {newProduct
+              ? newProduct?.map((d) => {
+                  return (
+                    <tr key={d._id}>
+                      <th className="w-5">
+                        <label>
+                          <input type="checkbox" className="checkbox" />
+                        </label>
+                      </th>
+                      <th>{d.title}</th>
+                      <th>{d.subtitle}</th>
+                    </tr>
+                  );
+                })
+              : null}
+          </tbody>
         </table>
       </div>
     </>

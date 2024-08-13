@@ -17,7 +17,23 @@ export default function AddProduct() {
       return;
     }
 
-    router.push("/products");
+    try {
+      const res = await fetch("http://localhost:3000/api/products", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ title, subtitle }),
+      });
+
+      if (res.ok) {
+        router.push("/products");
+      } else {
+        throw new Error("Failed to create a Product");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
