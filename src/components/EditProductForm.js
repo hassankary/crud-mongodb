@@ -1,11 +1,32 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function EditProductForm({ id, title, subtitle }) {
-  const [newTitle, setNewTitle] = useState(title);
-  const [newSubtitle, setNewSubtitle] = useState(subtitle);
+export default function EditProductForm({ id }) {
+  const [newTitle, setNewTitle] = useState("");
+  const [newSubtitle, setNewSubtitle] = useState("");
   const router = useRouter();
+
+  const getProductById = async (id) => {
+    try {
+      const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+        cache: "no-store",
+      });
+      if (!res.ok) {
+        throw new Error("Failed to fetch a Product");
+      }
+      const response = await res.json();
+      const { products } = response;
+      setNewTitle(products.title);
+      setNewSubtitle(products.subtitle);
+    } catch (error) {
+      console.log("error loading products:", error);
+    }
+  };
+
+  useEffect(() => {
+    getProductById(id);
+  }, []);
 
   const updateProduct = async (e) => {
     e.preventDefault();
@@ -33,7 +54,7 @@ export default function EditProductForm({ id, title, subtitle }) {
   return (
     <>
       <div className="flex flex-col font-bold">
-        <div className="pt-10 pb-5">Edit product {title}</div>
+        <div className="pt-10 pb-5">Edit product {newTitle} </div>
         <form className="flex flex-col space-y-2 w-full text-black">
           <input
             value={newTitle}
