@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function EditProductForm({ id }) {
+  const [initialFetching, setInitialFetching] = useState(true);
   const [newTitle, setNewTitle] = useState("");
   const [newSubtitle, setNewSubtitle] = useState("");
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function EditProductForm({ id }) {
       const { products } = response;
       setNewTitle(products.title);
       setNewSubtitle(products.subtitle);
+      setInitialFetching(false);
     } catch (error) {
       console.log("error loading products:", error);
     }
@@ -53,21 +55,23 @@ export default function EditProductForm({ id }) {
 
   return (
     <>
-      <div className="flex flex-col font-bold">
-        <div className="pt-10 pb-5">Edit product {newTitle} </div>
-        <form className="flex flex-col space-y-2 w-full text-black">
+      <div className="flex flex-col mx-auto p-10 w-fit items-center justify-center font-bold bg-slate-800 border rounded-3xl">
+        <div className="pb-8 text-xl text-white">Edit product</div>
+        <form className="flex flex-col space-y-2 text-black">
           <input
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             type="text"
-            placeholder="Title..."
+            placeholder={!initialFetching ? "Title..." : "Loading Title..."}
             className="input input-bordered input-accent bg-slate-50 w-full max-w-xs"
           />
           <input
             value={newSubtitle}
             onChange={(e) => setNewSubtitle(e.target.value)}
             type="text"
-            placeholder="Subtitle..."
+            placeholder={
+              !initialFetching ? "Subtitle..." : "Loading Subtitle..."
+            }
             className="input input-bordered input-accent bg-slate-50 w-full max-w-xs"
           />
           <button
