@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -80,6 +81,12 @@ export default function EditProductForm({ id }) {
           >
             Update
           </button>
+          <Link
+            href={"/products"}
+            className="btn btn-error max-w-[320px] font-bold text-white"
+          >
+            Cancel
+          </Link>
         </form>
       </div>
     </>

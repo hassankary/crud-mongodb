@@ -55,7 +55,7 @@ export const ProductList = () => {
             </div>
           </div>
           <div className=" flex justify-center">
-            <div className="flex flex-col w-full">
+            <div className="flex flex-col w-full px-2 sm:px-0">
               <table className="table w-full">
                 <thead className="text-black">
                   <tr className="border-slate-300">
@@ -72,7 +72,7 @@ export const ProductList = () => {
                         <td className="w-5">{i + 1 + "."}</td>
                         <td>{d.title}</td>
                         <td>{d.subtitle}</td>
-                        <td className=" space-x-2">
+                        <td className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-x-2 sm:space-y-0">
                           <button
                             onClick={() => router.push(`editProduct/${d._id}`)}
                             className="btn btn-outline btn-accent"
@@ -81,7 +81,7 @@ export const ProductList = () => {
                           </button>
                           <button
                             onClick={(e) => deleteProduct(e, d._id)}
-                            className="btn btn-outline btn-error"
+                            className="btn btn-outline btn-error w-full sm:w-fit"
                           >
                             Del
                           </button>
