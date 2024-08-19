@@ -41,65 +41,62 @@ export const ProductList = () => {
   };
 
   return (
-    <div className="">
-      <div className="flex justify-between p-10">
-        <div className="flex justify-center items-center font-bold">
-          BLOG MONGO
+    <>
+      {newProduct ? (
+        <div className="">
+          <div className="flex justify-center py-10 px-4">
+            <div>
+              <Link
+                href={"/addProduct"}
+                className="btn bg-slate-800 text-white"
+              >
+                Add Item
+              </Link>
+            </div>
+          </div>
+          <div className=" flex justify-center">
+            <div className="flex flex-col w-full">
+              <table className="table w-full">
+                <thead className="text-black">
+                  <tr className="border-slate-300">
+                    <th>No.</th>
+                    <th>Title</th>
+                    <th>Subtitle</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {newProduct?.map((d, i) => {
+                    return (
+                      <tr key={d._id} className=" border-slate-300">
+                        <td className="w-5">{i + 1 + "."}</td>
+                        <td>{d.title}</td>
+                        <td>{d.subtitle}</td>
+                        <td className=" space-x-2">
+                          <button
+                            onClick={() => router.push(`editProduct/${d._id}`)}
+                            className="btn btn-outline btn-accent"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={(e) => deleteProduct(e, d._id)}
+                            className="btn btn-outline btn-error"
+                          >
+                            Del
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        <div>
-          <Link href={"/addProduct"} className="btn btn-ghost">
-            Add
-          </Link>
-        </div>
-      </div>
-      <div className=" flex justify-center">
-
-      <div className="flex max-w-5xl">
-        <table className="table">
-          <thead className="text-black">
-            <tr>
-              <th className="w-5">
-                <label>
-                  <input type="checkbox" className="checkbox" />
-                </label>
-              </th>
-              <th>Title</th>
-              <th>Subtitle</th>
-              <th>Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {newProduct
-              ? newProduct?.map((d, i) => {
-                  return (
-                    <tr key={d._id}>
-                      <td className="w-5">
-                        {i + 1 + "."}
-                      </td>
-                      <td>{d.title}</td>
-                      <td>{d.subtitle}</td>
-                      <td className=" space-x-2">
-                        <button
-                          onClick={() => router.push(`editProduct/${d._id}`)}
-                          className="btn btn-outline btn-accent"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={(e) => deleteProduct(e, d._id)}
-                          className="btn btn-outline btn-error"
-                        >
-                          Del
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
-              : null}
-          </tbody>
-        </table>
-      </div>
-      </div>
-    </div>
+      ) : (
+        <span className="loading loading-infinity loading-lg"></span>
+      )}
+    </>
   );
 };
