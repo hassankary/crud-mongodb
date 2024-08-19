@@ -29,7 +29,7 @@ export const ProductList = () => {
   const deleteProduct = async (e, id) => {
     e.preventDefault();
     const confirmed = confirm("Are you sure?");
-    
+
     if (confirmed) {
       const res = await fetch(`http://localhost:3000/api/products?id=${id}`, {
         method: "DELETE",
@@ -52,7 +52,9 @@ export const ProductList = () => {
           </Link>
         </div>
       </div>
-      <div>
+      <div className=" flex justify-center">
+
+      <div className="flex max-w-5xl">
         <table className="table">
           <thead className="text-black">
             <tr>
@@ -63,17 +65,16 @@ export const ProductList = () => {
               </th>
               <th>Title</th>
               <th>Subtitle</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {newProduct
-              ? newProduct?.map((d) => {
+              ? newProduct?.map((d, i) => {
                   return (
                     <tr key={d._id}>
                       <td className="w-5">
-                        <label>
-                          <input type="checkbox" className="checkbox" />
-                        </label>
+                        {i + 1 + "."}
                       </td>
                       <td>{d.title}</td>
                       <td>{d.subtitle}</td>
@@ -97,6 +98,7 @@ export const ProductList = () => {
               : null}
           </tbody>
         </table>
+      </div>
       </div>
     </div>
   );
