@@ -54,25 +54,25 @@ export const ProductList = () => {
               </Link>
             </div>
           </div>
-          <div className=" flex justify-center">
+          <div className="flex justify-center">
             <div className="flex flex-col w-full px-2 sm:px-0">
               <table className="table w-full">
                 <thead className="text-black">
                   <tr className="border-slate-300">
-                    <th>No.</th>
-                    <th>Title</th>
-                    <th>Subtitle</th>
-                    <th>Action</th>
+                    <th className="px-1 sm:px-4 text-center">No.</th>
+                    <th className="px-2 sm:px-4">Title</th>
+                    <th className="px-2 sm:px-4">Subtitle</th>
+                    <th className="px-1 sm:px-4">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {newProduct?.map((d, i) => {
                     return (
-                      <tr key={d._id} className=" border-slate-300">
-                        <td className="w-5">{i + 1 + "."}</td>
-                        <td>{d.title}</td>
-                        <td>{d.subtitle}</td>
-                        <td className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-x-2 sm:space-y-0">
+                      <tr key={d._id} className="font-semibold border-slate-300">
+                        <td className="px-1 text-center">{i + 1 + "."}</td>
+                        <td className="px-2 sm:px-4">{d.title}</td>
+                        <td className="px-2 sm:px-4">{d.subtitle}</td>
+                        <td className="flex flex-col px-1 sm:px-4 sm:flex-row justify-center items-center space-y-2 sm:space-x-2 sm:space-y-0">
                           <button
                             onClick={() => router.push(`editProduct/${d._id}`)}
                             className="btn btn-outline btn-accent"
