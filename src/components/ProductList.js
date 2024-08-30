@@ -9,7 +9,7 @@ export const ProductList = () => {
 
   const getProducts = async () => {
     try {
-      const res = await fetch("http://localhost:3000/api/products", {
+      const res = await fetch(`/api/products`, {
         cache: "no-store",
       });
       if (!res.ok) {
@@ -31,7 +31,7 @@ export const ProductList = () => {
     const confirmed = confirm("Are you sure?");
 
     if (confirmed) {
-      const res = await fetch(`http://localhost:3000/api/products?id=${id}`, {
+      const res = await fetch(`/api/products?id=${id}`, {
         method: "DELETE",
       });
       if (res.ok) {

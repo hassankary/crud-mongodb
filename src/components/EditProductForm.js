@@ -35,7 +35,7 @@ export default function EditProductForm({ id }) {
     e.preventDefault();
 
     try {
-      const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+      const res = await fetch(`/api/products/${id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
